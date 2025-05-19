@@ -1,0 +1,18 @@
+#bookDisplay {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 30vw));
+    grid-template-rows: repeat(auto-fit, 1fr);
+    height: 65vh;
+    overflow: scroll;
+    gap: 2vw;
+}
+
+.bookCard {
+    padding: 1rem 3rem;
+    height: fit-content;
+    background-color: #c9c9c9;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3rem;
+    box-shadow: 10px 10px 10px grey;
+}

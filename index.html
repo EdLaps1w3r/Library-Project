@@ -7,7 +7,26 @@
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
 </head>
-<body>
+<body onload="loadDefaultBooks()">
+    <h1>Books</h1>
+    <div id="bookDisplay">
+    </div>
     
+    <button id="update">Add new Book</button>
+    <dialog id="updateForm">
+        <form method="dialog">
+            Fiction/Non-Fiction: <select id="classification">
+                <option value="null">Please Choose Fiction or Non-Fiction</option>
+                <option value="Fiction">Fiction</option>
+                <option value="Non-Fiction">Non-Fiction</option>
+            </select>
+            Name of Book: <input type="text" id="name">
+            Name of author: <input type="text" id="author">
+            Number of Pages: <input type="number" id="pages">
+            <input type="button" value="Add Book" id="confirm" onclick="acceptFormData()">
+            <button id="cancel" type="reset">Cancel</button>
+        </form>
+    </dialog>
+
 </body>
 </html>

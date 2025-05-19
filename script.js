@@ -1,17 +1,18 @@
 const myLibrary = [];
 
-function Book(name, authorName, classification, pageNum) {
+function Book(name, authorName, classification, pageNum, readStatus) {
     this.classification = classification;
     this.name = name;
     this.author = authorName;
     this.id = crypto.randomUUID();
-    this.pages = pageNum;   
+    this.pages = pageNum;
+    this.status = readStatus;   
 };
 
 function loadDefaultBooks() {
-    addBookToLibrary("Hobbit", "JRR Tolkien", "Fiction", 320);
-    addBookToLibrary("Fellowship of the Ring", "JRR Tolkien", "Fiction", 448);
-    addBookToLibrary("Encyclopedia of Knowledge", "Miles Kelly", "Non-Fiction", 512);
+    addBookToLibrary("Hobbit", "JRR Tolkien", "Fiction", 320, "Read");
+    addBookToLibrary("Fellowship of the Ring", "JRR Tolkien", "Fiction", 448, "Read");
+    addBookToLibrary("Encyclopedia of Knowledge", "Miles Kelly", "Non-Fiction", 512, "Unread");
 };
 
 function acceptFormData() {
@@ -19,11 +20,12 @@ function acceptFormData() {
     var classification = document.getElementById("classification").value;
     var author = document.getElementById("author").value;
     var pages = document.getElementById("pages").value;
-    addBookToLibrary(name, author, classification, pages);
+    var status = document.getElementById("status").value;
+    addBookToLibrary(name, author, classification, pages, status);
 };
 
-function addBookToLibrary(name, author, classification, pageNum) {
-    var newBook = new Book(name, author, classification, pageNum);
+function addBookToLibrary(name, author, classification, pageNum, readStatus) {
+    var newBook = new Book(name, author, classification, pageNum, readStatus);
     myLibrary.push(newBook);
     console.log(myLibrary);
     displayBooks(myLibrary);
@@ -50,6 +52,7 @@ function displayBooks() {
         newBookCard.append(classification);
         newBookCard.append(pageNum);
         newBookCard.append(destroyButton(book.id));
+        newBookCard.append(statusButton(book.status, book.id));
         newBookCard.append(id);
         displayArea.append(newBookCard);
     }
@@ -67,6 +70,22 @@ function destroyButton(id) {
         displayBooks();
     });
     return destroyButton;
+};
+
+function statusButton(status, id) {
+    var statusButton = document.createElement("button")
+    statusButton.innerHTML = status;
+    statusButton.className = id;
+    statusButton.addEventListener("click", () => {
+        var target = myLibrary.find((book) => book.id == statusButton.className);
+        if (statusButton.innerHTML == "Read") {
+            target.status = "Unread";
+        } else {
+            target.status = "Read";
+        };
+        displayBooks();
+    });
+    return statusButton;
 };
 
 
